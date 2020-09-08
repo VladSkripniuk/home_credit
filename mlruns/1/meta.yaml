@@ -1,0 +1,4 @@
+artifact_location: file:///home/vladislav/home_credit_default_risk/mlruns/1
+experiment_id: '1'
+lifecycle_stage: active
+name: home_credit
