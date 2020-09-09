@@ -16,3 +16,4 @@ kedro-mlflow
 matplotlib
 seaborn
 kedro-viz
+lightgbm

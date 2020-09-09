@@ -2,7 +2,7 @@ artifact_uri: file:///home/vladislav/home_credit_default_risk/mlruns/1/35a5d8bd2
 end_time: 1599565276920
 entry_point_name: ''
 experiment_id: '1'
-lifecycle_stage: active
+lifecycle_stage: deleted
 name: ''
 run_id: 35a5d8bd2bfb4b36aa78cc8a2e07e5ff
 run_uuid: 35a5d8bd2bfb4b36aa78cc8a2e07e5ff

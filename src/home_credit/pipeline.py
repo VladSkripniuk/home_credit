@@ -4,6 +4,7 @@ from kedro.pipeline import Pipeline
 
 from home_credit.pipelines import data_engineering
 from home_credit.pipelines import logistic_regression
+from home_credit.pipelines import lightgbm
 
 
 def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
@@ -19,9 +20,11 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
 
     data_engineering_pipeline = data_engineering.create_pipeline()
     logistic_regression_pipeline = logistic_regression.create_pipeline()
+    lightgbm_pipeline = lightgbm.create_pipeline()
 
     return {
         "de": data_engineering_pipeline,
         "logistic_regression_pipeline": logistic_regression_pipeline,
         "__default__": data_engineering_pipeline + logistic_regression_pipeline,
+        #"__default__": data_engineering_pipeline + lightgbm_pipeline,
     }

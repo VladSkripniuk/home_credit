@@ -1,0 +1,12 @@
+artifact_path: LightGBM_estimator
+flavors:
+  lightgbm:
+    data: model.lgb
+    lgb_version: 3.0.0
+  python_function:
+    data: model.lgb
+    env: conda.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.6.7
+run_id: 5217d60260d54e91856c58e278320346
+utc_time_created: '2020-09-09 08:24:31.357139'

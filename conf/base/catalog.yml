@@ -55,3 +55,10 @@ logistic_regression_estimator:
         filepath: data/06_models/logistic_regression_estimator.pickle
         versioned: true
 
+lightgbm_estimator:
+    type: kedro_mlflow.io.MlflowDataSet
+    data_set:
+        type: pickle.PickleDataSet
+        filepath: data/06_models/lightgbm_estimator.pickle
+        versioned: true
+

@@ -1,8 +1,8 @@
 from kedro.pipeline import Pipeline, node
 
 from .nodes import (
-    preprocess_applications_train,
-    preprocess_applications_test,
+    preprocess_application_train_test_EXT_BIRTH,
+    preprocess_application_train_test,
 )
 
 
@@ -10,16 +10,16 @@ def create_pipeline(**kwargs):
     return Pipeline(
         [
             node(
-                func=preprocess_applications_train,
-                inputs="application_train",
-                outputs="application_train_preprocessed",
-                name="preprocessing_application_train",
+                func=preprocess_application_train_test_EXT_BIRTH,
+                inputs=["application_train", "application_test", "parameters"],
+                outputs="application_EXT_BIRTH_train_test_df",
+                name="preprocessing_application_EXT_BIRTH",
             ),
             node(
-                func=preprocess_applications_test,
-                inputs="application_test",
-                outputs="application_test_preprocessed",
-                name="preprocessing_application_test",
+                func=preprocess_application_train_test,
+                inputs=["application_train", "application_test", "parameters"],
+                outputs="application_train_test_df",
+                name="preprocessing_application",
             ),
         ]
     )

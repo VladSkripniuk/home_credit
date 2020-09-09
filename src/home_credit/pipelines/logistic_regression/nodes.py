@@ -7,42 +7,33 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import train_test_split
 
 
-def split_train_data(data: pd.DataFrame, parameters: Dict[str, Any]) -> Dict[str, Any]:
+def split_train_data(df: pd.DataFrame, parameters: Dict[str, Any]) -> Dict[str, Any]:
     """Node for splitting the dataset into training and test
     sets, each split into features and labels.
     The split ratio parameter is taken from conf/project/parameters.yml.
-    The data and the parameters will be loaded and provided to your function
-    automatically when the pipeline is executed and it is time to run this node.
     """
     test_size = parameters['test_size']
 
-    data = data[[
-        'TARGET',
-        'EXT_SOURCE_1',
-        'EXT_SOURCE_2',
-        'EXT_SOURCE_3',
-        'DAYS_BIRTH'
-    ]]
+    # Divide in training/validation and test data
+    train_df = df[df['TARGET'].notnull()]
+    test_df = df[df['TARGET'].isnull()]
    
-    # Shuffle all the data
-    data = data.sample(frac=1).reset_index(drop=True)
-
-    # Split to training and testing data
-    n = data.shape[0]
-    n_test = int(n * test_size)
-    training_data = data.iloc[n_test:, :].reset_index(drop=True)
-    test_data = data.iloc[:n_test, :].reset_index(drop=True)
+    training_data, val_data = train_test_split(train_df, test_size=test_size,
+                stratify=train_df['TARGET'], random_state=parameters['random_state'])
+    training_data.reset_index(drop=True, inplace=True)
+    val_data.reset_index(drop=True, inplace=True)
 
     # Split the data to features and labels
-    train_data_x = training_data.loc[:, "EXT_SOURCE_1":"DAYS_BIRTH"]
+    train_data_x = training_data.drop(labels=['TARGET'], axis=1)
     train_data_y = training_data['TARGET']
-    test_data_x = test_data.loc[:, "EXT_SOURCE_1":"DAYS_BIRTH"]
-    test_data_y = test_data['TARGET']
+    val_data_x = val_data.drop(labels=['TARGET'], axis=1)
+    val_data_y = val_data['TARGET']
+    test_data_x = test_df.drop(labels=['TARGET'], axis=1)
 
-    # When returning many variables, it is a good practice to give them names:
-    return train_data_x, test_data_x, train_data_y, test_data_y
+    return train_data_x, val_data_x, test_data_x, train_data_y, val_data_y
 
 
 def train_model(
@@ -50,11 +41,11 @@ def train_model(
 ) -> LogisticRegression:
     """Node for training a simple logistic regression model.
     """
-    X = X_train.to_numpy()
-    y = y_train.to_numpy()
+    feats = [f for f in X_train.columns if f not in ['TARGET','SK_ID_CURR','SK_ID_BUREAU','SK_ID_PREV','index']]
+    X_train = X_train[feats]
 
     model = LogisticRegression()
-    model.fit(X, y)
+    model.fit(X_train, y_train)
 
     mlflow.sklearn.log_model(sk_model=model, artifact_path="logistic_regression_estimator")
 
@@ -66,6 +57,8 @@ def evaluate_model(
     ) -> None:
     """Node for evaluating a simple logistic regression model.
     """
+    feats = [f for f in X_test.columns if f not in ['TARGET','SK_ID_CURR','SK_ID_BUREAU','SK_ID_PREV','index']]
+    X_test = X_test[feats]
 
     predictions_proba = predict_proba(model, X_test)
     predictions = predict(model, X_test)

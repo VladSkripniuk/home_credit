@@ -64,6 +64,7 @@ kedro-mlflow==0.2.1       # via -r src/requirements.in
 kedro-viz==3.4.0          # via -r src/requirements.in
 kedro[pandas.csvdataset]==0.16.4  # via -r src/requirements.in, kedro-mlflow, kedro-viz
 kiwisolver==1.2.0         # via matplotlib
+lightgbm==3.0.0           # via -r src/requirements.in
 mako==1.1.3               # via alembic
 markupsafe==1.1.1         # via jinja2, mako
 matplotlib==3.3.1         # via -r src/requirements.in, seaborn
@@ -76,7 +77,7 @@ nbconvert==5.6.1          # via jupyter, notebook
 nbformat==5.0.7           # via ipywidgets, nbconvert, nbstripout, notebook
 nbstripout==0.3.3         # via -r src/requirements.in
 notebook==6.1.3           # via jupyter, jupyterlab, jupyterlab-launcher, widgetsnbextension
-numpy==1.19.1             # via matplotlib, mlflow, pandas, scikit-learn, scipy, seaborn
+numpy==1.19.1             # via lightgbm, matplotlib, mlflow, pandas, scikit-learn, scipy, seaborn
 oauthlib==3.1.0           # via requests-oauthlib
 packaging==20.4           # via bleach, pytest
 pandas==1.0.3             # via kedro, mlflow, seaborn
@@ -116,8 +117,8 @@ querystring-parser==1.2.4  # via mlflow
 regex==2020.7.14          # via black
 requests-oauthlib==1.3.0  # via msrest
 requests==2.24.0          # via azure-core, cookiecutter, databricks-cli, docker, mlflow, msrest, requests-oauthlib
-scikit-learn==0.23.2      # via -r src/requirements.in
-scipy==1.5.2              # via scikit-learn, seaborn
+scikit-learn==0.23.2      # via -r src/requirements.in, lightgbm
+scipy==1.5.2              # via lightgbm, scikit-learn, seaborn
 seaborn==0.10.1           # via -r src/requirements.in
 semver==2.10.2            # via kedro-viz
 send2trash==1.5.0         # via notebook
