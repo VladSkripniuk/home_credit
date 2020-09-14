@@ -1,0 +1,1 @@
+{'test_size': 0.2, 'random_state': 42, 'num_rows': 1000, 'nan_as_category': True}

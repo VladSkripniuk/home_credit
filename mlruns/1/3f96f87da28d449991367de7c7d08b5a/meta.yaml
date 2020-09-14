@@ -1,0 +1,15 @@
+artifact_uri: file:///home/vladislav/home_credit_default_risk/mlruns/1/3f96f87da28d449991367de7c7d08b5a/artifacts
+end_time: 1600119803389
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: 3f96f87da28d449991367de7c7d08b5a
+run_uuid: 3f96f87da28d449991367de7c7d08b5a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1600119799263
+status: 3
+tags: []
+user_id: vladislav

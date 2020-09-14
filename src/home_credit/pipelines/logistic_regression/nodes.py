@@ -25,6 +25,7 @@ def split_train_data(df: pd.DataFrame, parameters: Dict[str, Any]) -> Dict[str, 
                 stratify=train_df['TARGET'], random_state=parameters['random_state'])
     training_data.reset_index(drop=True, inplace=True)
     val_data.reset_index(drop=True, inplace=True)
+    test_df.reset_index(drop=True, inplace=True)
 
     # Split the data to features and labels
     train_data_x = training_data.drop(labels=['TARGET'], axis=1)

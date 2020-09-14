@@ -48,6 +48,30 @@ application_test:
   type: pandas.CSVDataSet
   filepath: data/01_raw/application_test.csv
 
+bureau:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/bureau.csv
+
+bureau_balance:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/bureau_balance.csv
+
+previous_application:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/previous_application.csv
+
+POS_CASH_balance:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/POS_CASH_balance.csv
+
+installments_payments:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/installments_payments.csv
+
+credit_card_balance:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/credit_card_balance.csv
+
 logistic_regression_estimator:
     type: kedro_mlflow.io.MlflowDataSet
     data_set:

@@ -25,6 +25,6 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
     return {
         "de": data_engineering_pipeline,
         "logistic_regression_pipeline": logistic_regression_pipeline,
-        "__default__": data_engineering_pipeline + logistic_regression_pipeline,
-        #"__default__": data_engineering_pipeline + lightgbm_pipeline,
+        "lightgbm_pipeline": lightgbm_pipeline,
+        "__default__": data_engineering_pipeline + lightgbm_pipeline,
     }

@@ -12,7 +12,7 @@ from sklearn.metrics import roc_auc_score, roc_curve
 
 # LightGBM GBDT
 # Parameters from Tilii kernel: https://www.kaggle.com/tilii7/olivier-lightgbm-parameters-by-bayesian-opt/code
-def train_model(X_train: pd.DataFrame, y_train: pd.DataFrame, X_val: pd.DataFrame, y_val: pd.DataFrame, parameters: Dict[str, Any]) -> None:
+def train_model(X_train: pd.DataFrame, y_train: pd.DataFrame, X_val: pd.DataFrame, y_val: pd.DataFrame, parameters: Dict[str, Any]) -> Any:
 
     feats = [f for f in X_train.columns if f not in ['TARGET','SK_ID_CURR','SK_ID_BUREAU','SK_ID_PREV','index']]
 
@@ -46,3 +46,19 @@ def train_model(X_train: pd.DataFrame, y_train: pd.DataFrame, X_val: pd.DataFram
     mlflow.lightgbm.log_model(lgb_model=clf.booster_, artifact_path="LightGBM_estimator")
 
     return clf
+
+def make_predictions(X_test: pd.DataFrame, clf: Any, parameters: Dict[str, Any]) -> None:
+
+    SK_ID_CURR_index = X_test['SK_ID_CURR']
+    feats = [f for f in X_test.columns if f not in ['TARGET','SK_ID_CURR','SK_ID_BUREAU','SK_ID_PREV','index']]
+    X_test = X_test[feats]
+
+    y_test_pred = clf.predict_proba(X_test, num_iteration=clf.best_iteration_)[:, 1]
+
+    X_test['TARGET'] = y_test_pred
+    X_test['SK_ID_CURR'] = SK_ID_CURR_index
+    X_test[['SK_ID_CURR', 'TARGET']].to_csv("submission.csv", index=False)
+
+    mlflow.log_artifact("submission.csv")
+
+    return y_test_pred
