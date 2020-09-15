@@ -1,5 +1,3 @@
-# prestacap_task
-
 ## Overview
 
 Solution for Kaggle [Home Credit Default Risk Challenge](https://www.kaggle.com/c/home-credit-default-risk).
